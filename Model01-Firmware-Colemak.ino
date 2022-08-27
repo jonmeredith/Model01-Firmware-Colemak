@@ -284,16 +284,16 @@ KEYMAPS(
      // Edit this keymap to make a custom layout
   [FUN] = KEYMAP_STACKED
   (XXX, Key_1,   Key_2,  Key_3,  Key_4,  Key_5,           XXX, // 7
-   XXX, Key_F12, Key_F7, Key_F8, Key_F9, Key_PrintScreen, XXX, // 7
-   XXX, Key_F11, Key_F4, Key_F5, Key_F6, Key_ScrollLock,       // 6
-   XXX, Key_F10, Key_F1, Key_F2, Key_F3, Key_Pause,       XXX, // 7
+   XXX, Key_F12, Key_F7, Key_F8, Key_F9, Key_PrintScreen, XXX, // 7 - top
+   XXX, Key_F11, Key_F4, Key_F5, Key_F6, Key_ScrollLock,       // 6 - middle
+   XXX, Key_F10, Key_F1, Key_F2, Key_F3, Key_Pause,       XXX, // 7 - bottom
    Key_LeftGui, Key_Space, Key_Tab, XXX,
    XXX,
 
-   XXX, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX,
-   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX,
-   XXX, XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX,
-        XXX,  XXX,            XXX,              XXX,          XXX,          XXX,
+   XXX, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
+   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
+        XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
+   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
    XXX, XXX,  XXX, XXX,
    XXX)
 
@@ -561,6 +561,13 @@ void setup() {
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 8), Key_LeftControl),  // Right-Thumb-Cmd
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(1, 8), Key_LeftAlt),      // Right-Thumb-Space
     kaleidoscope::plugin::Qukey(0, KeyAddr(0, 8), ShiftToLayer(FUN)),      // Right-Thumb-Ctrl
+
+    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 11), Key_RightShift),    // Right-Home-N
+    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 12), Key_RightControl),  // Right-Home-E
+    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 13), Key_RightAlt),      // Right-Home-I
+    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 14), Key_RightGui),      // Right-Home-O
+
+    
 
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 6), ShiftToLayer(1))   // Q/layer-shift (on `fn`)
   )
