@@ -72,6 +72,9 @@
 // Support for magic combos (key chords that trigger an action)
 #include "Kaleidoscope-MagicCombo.h"
 
+// Support for Qukeys -- quantum keys
+#include <Kaleidoscope-Qukeys.h>
+
 // Support for USB quirks, like changing the key state report protocol
 #include "Kaleidoscope-USB-Quirks.h"
 
@@ -111,7 +114,7 @@ enum { MACRO_VERSION_INFO,
   *    https://github.com/keyboardio/Kaleidoscope/blob/master/src/kaleidoscope/key_defs_keymaps.h
   *
   * Additional things that should be documented here include
-  *   using ___ to let keypresses fall through to the previously active layer
+  *   using XXX to let keypresses fall through to the previously active layer
   *   using XXX to mark a keyswitch as 'blocked' on this layer
   *   using ShiftToLayer() and LockLayer() keys to change the active keymap.
   *   keeping NUM and FN consistent and accessible on all layers
@@ -142,7 +145,7 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { PRIMARY, NUMPAD, FUNCTION }; // layers
+enum { PRIMARY, NUMPAD, FUNCTION, FUN }; // layers
 
 
 /**
@@ -174,7 +177,7 @@ KEYMAPS(
 
 #if defined (PRIMARY_KEYMAP_QWERTY)
   [PRIMARY] = KEYMAP_STACKED
-  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
+  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
    Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
    Key_PageUp,   Key_A, Key_S, Key_D, Key_F, Key_G,
    Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
@@ -191,7 +194,7 @@ KEYMAPS(
 #elif defined (PRIMARY_KEYMAP_DVORAK)
 
   [PRIMARY] = KEYMAP_STACKED
-  (___,          Key_1,         Key_2,     Key_3,      Key_4, Key_5, Key_LEDEffectNext,
+  (XXX,          Key_1,         Key_2,     Key_3,      Key_4, Key_5, Key_LEDEffectNext,
    Key_Backtick, Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
    Key_PageUp,   Key_A,         Key_O,     Key_E,      Key_U, Key_I,
    Key_PageDown, Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
@@ -208,7 +211,7 @@ KEYMAPS(
 #elif defined (PRIMARY_KEYMAP_COLEMAK)
 
   [PRIMARY] = KEYMAP_STACKED
-  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
+  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
    Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_G, Key_Tab,
    Key_PageUp,   Key_A, Key_R, Key_S, Key_T, Key_D,
    Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
@@ -226,19 +229,19 @@ KEYMAPS(
 
   // Edit this keymap to make a custom layout
   [PRIMARY] = KEYMAP_STACKED
-  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
+  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
    Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
    Key_PageUp,   Key_A, Key_R, Key_S, Key_T, Key_G,
    Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, Key_Escape,
-   Key_Escape,   Key_Spacebar, Key_Tab, ___,
-   ___,
+   Key_Escape,   Key_Spacebar, Key_Tab, XXX,
+   XXX,
 
    M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
    Key_Enter,     Key_J, Key_L, Key_U,     Key_Y,         Key_Semicolon, Key_Equals,
                   Key_M, Key_N, Key_E,     Key_I,         Key_O,         Key_Quote,
    Key_RightAlt,  Key_K, Key_H, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   ___,           Key_Enter, Key_Backspace, Key_Delete,
-   ___),
+   XXX,           Key_Enter, Key_Backspace, Key_Delete,
+   XXX),
    
 #else
 
@@ -249,34 +252,51 @@ KEYMAPS(
 
 
   [NUMPAD] =  KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___,
-   ___,
+  (XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+   XXX, XXX, XXX, XXX, XXX, XXX,
+   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+   XXX, XXX, XXX, XXX,
+   XXX,
 
-   M(MACRO_VERSION_INFO),  ___, Key_7, Key_8,      Key_9,              Key_KeypadSubtract, ___,
-   ___,                    ___, Key_4, Key_5,      Key_6,              Key_KeypadAdd,      ___,
-                           ___, Key_1, Key_2,      Key_3,              Key_Equals,         ___,
-   ___,                    ___, Key_0, Key_Period, Key_KeypadMultiply, Key_KeypadDivide,   Key_Enter,
-   ___, ___, ___, ___,
-   ___),
+   M(MACRO_VERSION_INFO),  XXX, Key_7, Key_8,      Key_9,              Key_KeypadSubtract, XXX,
+   XXX,                    XXX, Key_4, Key_5,      Key_6,              Key_KeypadAdd,      XXX,
+                           XXX, Key_1, Key_2,      Key_3,              Key_Equals,         XXX,
+   XXX,                    XXX, Key_0, Key_Period, Key_KeypadMultiply, Key_KeypadDivide,   Key_Enter,
+   XXX, XXX, XXX, XXX,
+   XXX),
 
   [FUNCTION] =  KEYMAP_STACKED
-  (___,      Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           Key_CapsLock,
-   Key_Tab,  ___,              Key_mouseUp, ___,        Key_mouseBtnR, Key_mouseWarpEnd, Key_mouseWarpNE,
+  (XXX,      Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           Key_CapsLock,
+   Key_Tab,  XXX,              Key_mouseUp, XXX,        Key_mouseBtnR, Key_mouseWarpEnd, Key_mouseWarpNE,
    Key_Home, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseBtnL, Key_mouseWarpNW,
-   Key_End,  Key_PrintScreen,  Key_Insert,  ___,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
-   ___, Key_Delete, ___, ___,
-   ___,
+   Key_End,  Key_PrintScreen,  Key_Insert,  XXX,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
+   XXX, Key_Delete, XXX, XXX,
+   XXX,
 
    Consumer_ScanPreviousTrack, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
    Consumer_PlaySlashPause,    Consumer_ScanNextTrack, Key_LeftCurlyBracket,     Key_RightCurlyBracket,    Key_LeftBracket, Key_RightBracket, Key_F12,
-                               Key_LeftArrow,          Key_DownArrow,            Key_UpArrow,              Key_RightArrow,  ___,              ___,
-   Key_PcApplication,          Consumer_Mute,          Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             Key_Backslash,    Key_Pipe,
-   ___, ___, Key_Enter, ___,
-   ___)
+                               Key_LeftArrow,          Key_DownArrow,            Key_UpArrow,              Key_RightArrow,  XXX,              XXX,
+   Key_PcApplication,          Consumer_Mute,          Consumer_VolumeDecrement, Consumer_VolumeIncrement, XXX,             Key_Backslash,    Key_Pipe,
+   XXX, XXX, Key_Enter, XXX,
+   XXX),
+
+     // Edit this keymap to make a custom layout
+  [FUN] = KEYMAP_STACKED
+  (XXX, Key_1,   Key_2,  Key_3,  Key_4,  Key_5,           XXX, // 7
+   XXX, Key_F12, Key_F7, Key_F8, Key_F9, Key_PrintScreen, XXX, // 7
+   XXX, Key_F11, Key_F4, Key_F5, Key_F6, Key_ScrollLock,       // 6
+   XXX, Key_F10, Key_F1, Key_F2, Key_F3, Key_Pause,       XXX, // 7
+   Key_LeftGui, Key_Space, Key_Tab, XXX,
+   XXX,
+
+   XXX, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX,
+   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX,
+   XXX, XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX,
+        XXX,  XXX,            XXX,              XXX,          XXX,          XXX,
+   XXX, XXX,  XXX, XXX,
+   XXX)
+
 ) // KEYMAPS(
 
 /* Re-enable astyle's indent enforcement */
@@ -434,6 +454,9 @@ KALEIDOSCOPE_INIT_PLUGINS(
   EEPROMSettings,
   EEPROMKeymap,
 
+  // Quantum keys
+  Qukeys,
+  
   // Focus allows bi-directional communication with the host, and is the
   // interface through which the keymap in EEPROM can be edited.
   Focus,
@@ -524,6 +547,29 @@ KALEIDOSCOPE_INIT_PLUGINS(
  * Kaleidoscope and any plugins.
  */
 void setup() {
+
+  // The following Qukey definitions are for the left side of the home row (and
+  // the left palm key) of the Keyboardio Model01 keyboard.  For other
+  // keyboards, the `KeyAddr(row, col)` coordinates will need adjustment.
+  QUKEYS(
+//    kaleidoscope::plugin::Qukey(0, KeyAddr(0, 7), Key_LeftGui),      // Left-Thumb-Ctrl
+//    kaleidoscope::plugin::Qukey(0, KeyAddr(1, 7), Key_LeftAlt),      // Left-Thumb-Bksp
+//    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 7), Key_LeftControl),  // Left-Thumb-Cmd
+//    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 7), Key_LeftShift),    // Left-Thumb-Shift
+//
+//    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 8), Key_LeftShift),    // Right-Thumb-Shift
+//    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 8), Key_LeftControl),  // Right-Thumb-Cmd
+//    kaleidoscope::plugin::Qukey(0, KeyAddr(1, 8), Key_LeftAlt),      // Right-Thumb-Space
+    kaleidoscope::plugin::Qukey(0, KeyAddr(0, 8), ShiftToLayer(FUN)),      // Right-Thumb-Ctrl
+
+//    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 6), ShiftToLayer(1))   // Q/layer-shift (on `fn`)
+  )
+  Qukeys.setHoldTimeout(1000);
+  Qukeys.setOverlapThreshold(50);
+  Qukeys.setMinimumHoldTime(100);
+  Qukeys.setMinimumPriorInterval(80);
+  Qukeys.setMaxIntervalForTapRepeat(150);
+
   // First, call Kaleidoscope's internal setup function
   Kaleidoscope.setup();
 
