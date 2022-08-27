@@ -552,6 +552,12 @@ void setup() {
   // the left palm key) of the Keyboardio Model01 keyboard.  For other
   // keyboards, the `KeyAddr(row, col)` coordinates will need adjustment.
   QUKEYS(
+
+    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 1), Key_LeftGui),        // Left-Home-A
+    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 2), Key_LeftAlt),        // Left-Home-R
+    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 3), Key_LeftControl),     // Left-Home-S
+    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 4), Key_LeftShift),      // Left-Home-T
+
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(0, 7), Key_LeftGui),      // Left-Thumb-Ctrl
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(1, 7), Key_LeftAlt),      // Left-Thumb-Bksp
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 7), Key_LeftControl),  // Left-Thumb-Cmd
@@ -560,7 +566,7 @@ void setup() {
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 8), Key_LeftShift),    // Right-Thumb-Shift
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 8), Key_LeftControl),  // Right-Thumb-Cmd
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(1, 8), Key_LeftAlt),      // Right-Thumb-Space
-    kaleidoscope::plugin::Qukey(0, KeyAddr(0, 8), ShiftToLayer(FUN)),      // Right-Thumb-Ctrl
+    kaleidoscope::plugin::Qukey(0, KeyAddr(0, 8), ShiftToLayer(FUN)),  // Right-Thumb-Ctrl
 
     kaleidoscope::plugin::Qukey(0, KeyAddr(2, 11), Key_RightShift),    // Right-Home-N
     kaleidoscope::plugin::Qukey(0, KeyAddr(2, 12), Key_RightControl),  // Right-Home-E
@@ -571,11 +577,11 @@ void setup() {
 
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 6), ShiftToLayer(1))   // Q/layer-shift (on `fn`)
   )
-  Qukeys.setHoldTimeout(1000);
-  Qukeys.setOverlapThreshold(50);
-  Qukeys.setMinimumHoldTime(100);
-  Qukeys.setMinimumPriorInterval(80);
-  Qukeys.setMaxIntervalForTapRepeat(150);
+  Qukeys.setHoldTimeout(250);
+  Qukeys.setMaxIntervalForTapRepeat(25);
+  Qukeys.setOverlapThreshold(100);
+  Qukeys.setMinimumHoldTime(150);
+  Qukeys.setMinimumPriorInterval(150);
 
   // First, call Kaleidoscope's internal setup function
   Kaleidoscope.setup();
