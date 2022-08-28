@@ -148,7 +148,7 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { PRIMARY, FUN, NUM, SYM }; // layers
+enum { PRIMARY, FUN, NUM, SYM, NAV, MOUSE, MEDIA }; // layers
 
 
 /**
@@ -175,6 +175,9 @@ enum { PRIMARY, FUN, NUM, SYM }; // layers
  *   so we can make the keymaps actually resemble the physical key layout better
  */
 // *INDENT-OFF*
+
+#define Key_Undo LGUI(Key_Z)
+#define Key_Redo LGUI(LSHIFT(Key_Z))
 
 KEYMAPS(
 
@@ -328,8 +331,22 @@ KEYMAPS(
         XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
    XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
    XXX, XXX,  XXX, XXX,
+   XXX),
+
+  [NAV] = KEYMAP_STACKED
+  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
+   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
+   Key_PageUp,   Key_LeftGui, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LFN2,
+   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, Key_Escape,
+   Key_Escape,   Key_Spacebar, Key_Tab, XXX,
+   XXX,
+
+   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
+   Key_Enter,     Key_Redo, Key_Paste, Key_Copy,     Key_Cut,         Key_Undo, Key_Equals,
+                  Key_CapsLock, Key_LeftArrow, Key_DownArrow, Key_UpArrow, Key_RightArrow, Key_Quote,
+   Key_RightAlt,  Key_Insert,   Key_Home,      Key_PageDown,  Key_PageUp,  Key_End,        Key_Minus,
+   XXX,           Key_Enter, Key_Backspace, Key_Delete,
    XXX)
-   
    
 
 ) // KEYMAPS(
@@ -597,7 +614,7 @@ void setup() {
     kaleidoscope::plugin::Qukey(0, KeyAddr(2, 4), Key_LeftShift),      // Left-Home-T
 
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(0, 7), Key_LeftGui),      // Left-Thumb-Ctrl
-//    kaleidoscope::plugin::Qukey(0, KeyAddr(1, 7), Key_LeftAlt),      // Left-Thumb-Bksp
+    kaleidoscope::plugin::Qukey(0, KeyAddr(1, 7), ShiftToLayer(NAV)),      // Left-Thumb-Bksp
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 7), Key_LeftControl),  // Left-Thumb-Cmd
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 7), Key_LeftShift),    // Left-Thumb-Shift
 //
