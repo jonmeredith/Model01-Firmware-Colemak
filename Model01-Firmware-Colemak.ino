@@ -32,8 +32,8 @@
 // Support for controlling the keyboard's LEDs
 #include "Kaleidoscope-LEDControl.h"
 
-// Support for "Numpad" mode, which is mostly just the Numpad specific LED mode
-#include "Kaleidoscope-NumPad.h"
+//// Support for "Numpad" mode, which is mostly just the Numpad specific LED mode
+//#include "Kaleidoscope-NumPad.h"
 
 // Support for the "Boot greeting" effect, which pulses the 'LED' button for 10s
 // when the keyboard is connected to a computer (or that computer is powered on)
@@ -45,17 +45,17 @@
 // Support for an LED mode that makes all the LEDs 'breathe'
 #include "Kaleidoscope-LEDEffect-Breathe.h"
 
-// Support for an LED mode that makes a red pixel chase a blue pixel across the keyboard
-#include "Kaleidoscope-LEDEffect-Chase.h"
+//// Support for an LED mode that makes a red pixel chase a blue pixel across the keyboard
+//#include "Kaleidoscope-LEDEffect-Chase.h"
 
 // Support for LED modes that pulse the keyboard's LED in a rainbow pattern
 #include "Kaleidoscope-LEDEffect-Rainbow.h"
 
-// Support for an LED mode that lights up the keys as you press them
-#include "Kaleidoscope-LED-Stalker.h"
+//// Support for an LED mode that lights up the keys as you press them
+//#include "Kaleidoscope-LED-Stalker.h"
 
-// Support for an LED mode that prints the keys you press in letters 4px high
-#include "Kaleidoscope-LED-AlphaSquare.h"
+//// Support for an LED mode that prints the keys you press in letters 4px high
+//#include "Kaleidoscope-LED-AlphaSquare.h"
 
 // Support for shared palettes for other plugins, like Colormap below
 #include "Kaleidoscope-LED-Palette-Theme.h"
@@ -74,6 +74,9 @@
 
 // Support for Qukeys -- quantum keys
 #include <Kaleidoscope-Qukeys.h>
+
+// Support for TOPSY - inverts shift for a key
+#include <Kaleidoscope-TopsyTurvy.h>
 
 // Support for USB quirks, like changing the key state report protocol
 #include "Kaleidoscope-USB-Quirks.h"
@@ -145,7 +148,7 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { PRIMARY, NUMPAD, FUNCTION, FUN }; // layers
+enum { PRIMARY, FUN, NUM, SYM }; // layers
 
 
 /**
@@ -236,7 +239,7 @@ KEYMAPS(
    Key_Escape,   Key_Spacebar, Key_Tab, XXX,
    XXX,
 
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
+   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
    Key_Enter,     Key_J, Key_L, Key_U,     Key_Y,         Key_Semicolon, Key_Equals,
                   Key_M, Key_N, Key_E,     Key_I,         Key_O,         Key_Quote,
    Key_RightAlt,  Key_K, Key_H, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
@@ -251,35 +254,35 @@ KEYMAPS(
 
 
 
-  [NUMPAD] =  KEYMAP_STACKED
-  (XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-   XXX, XXX, XXX, XXX, XXX, XXX,
-   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-   XXX, XXX, XXX, XXX,
-   XXX,
-
-   M(MACRO_VERSION_INFO),  XXX, Key_7, Key_8,      Key_9,              Key_KeypadSubtract, XXX,
-   XXX,                    XXX, Key_4, Key_5,      Key_6,              Key_KeypadAdd,      XXX,
-                           XXX, Key_1, Key_2,      Key_3,              Key_Equals,         XXX,
-   XXX,                    XXX, Key_0, Key_Period, Key_KeypadMultiply, Key_KeypadDivide,   Key_Enter,
-   XXX, XXX, XXX, XXX,
-   XXX),
-
-  [FUNCTION] =  KEYMAP_STACKED
-  (XXX,      Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           Key_CapsLock,
-   Key_Tab,  XXX,              Key_mouseUp, XXX,        Key_mouseBtnR, Key_mouseWarpEnd, Key_mouseWarpNE,
-   Key_Home, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseBtnL, Key_mouseWarpNW,
-   Key_End,  Key_PrintScreen,  Key_Insert,  XXX,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
-   XXX, Key_Delete, XXX, XXX,
-   XXX,
-
-   Consumer_ScanPreviousTrack, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
-   Consumer_PlaySlashPause,    Consumer_ScanNextTrack, Key_LeftCurlyBracket,     Key_RightCurlyBracket,    Key_LeftBracket, Key_RightBracket, Key_F12,
-                               Key_LeftArrow,          Key_DownArrow,            Key_UpArrow,              Key_RightArrow,  XXX,              XXX,
-   Key_PcApplication,          Consumer_Mute,          Consumer_VolumeDecrement, Consumer_VolumeIncrement, XXX,             Key_Backslash,    Key_Pipe,
-   XXX, XXX, Key_Enter, XXX,
-   XXX),
+//  [NUMPAD] =  KEYMAP_STACKED
+//  (XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+//   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+//   XXX, XXX, XXX, XXX, XXX, XXX,
+//   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+//   XXX, XXX, XXX, XXX,
+//   XXX,
+//
+//   M(MACRO_VERSION_INFO),  XXX, Key_7, Key_8,      Key_9,              Key_KeypadSubtract, XXX,
+//   XXX,                    XXX, Key_4, Key_5,      Key_6,              Key_KeypadAdd,      XXX,
+//                           XXX, Key_1, Key_2,      Key_3,              Key_Equals,         XXX,
+//   XXX,                    XXX, Key_0, Key_Period, Key_KeypadMultiply, Key_KeypadDivide,   Key_Enter,
+//   XXX, XXX, XXX, XXX,
+//   XXX),
+//
+//  [FUNCTION] =  KEYMAP_STACKED
+//  (XXX,      Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           Key_CapsLock,
+//   Key_Tab,  XXX,              Key_mouseUp, XXX,        Key_mouseBtnR, Key_mouseWarpEnd, Key_mouseWarpNE,
+//   Key_Home, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseBtnL, Key_mouseWarpNW,
+//   Key_End,  Key_PrintScreen,  Key_Insert,  XXX,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
+//   XXX, Key_Delete, XXX, XXX,
+//   XXX,
+//
+//   Consumer_ScanPreviousTrack, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
+//   Consumer_PlaySlashPause,    Consumer_ScanNextTrack, Key_LeftCurlyBracket,     Key_RightCurlyBracket,    Key_LeftBracket, Key_RightBracket, Key_F12,
+//                               Key_LeftArrow,          Key_DownArrow,            Key_UpArrow,              Key_RightArrow,  XXX,              XXX,
+//   Key_PcApplication,          Consumer_Mute,          Consumer_VolumeDecrement, Consumer_VolumeIncrement, XXX,             Key_Backslash,    Key_Pipe,
+//   XXX, XXX, Key_Enter, XXX,
+//   XXX),
 
      // Edit this keymap to make a custom layout
   [FUN] = KEYMAP_STACKED
@@ -295,7 +298,39 @@ KEYMAPS(
         XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
    XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
    XXX, XXX,  XXX, XXX,
+   XXX),
+
+  [NUM] = KEYMAP_STACKED
+  (XXX, Key_1,           Key_2, Key_3, Key_4, Key_5,           XXX, // 7
+   XXX, Key_LeftBracket, Key_7, Key_8, Key_9, Key_RightBracket, XXX, // 7 - top
+   XXX, Key_Semicolon,   Key_4, Key_5, Key_6, Key_Equals,       // 6 - middle
+   XXX, Key_Backtick,    Key_1, Key_2, Key_3, Key_Backslash,       XXX, // 7 - bottom
+   Key_Period, Key_0, Key_Minus, XXX,
+   XXX,
+
+   XXX, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
+   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
+        XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
+   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
+   XXX, XXX,  XXX, XXX,
+   XXX),
+
+  [SYM] = KEYMAP_STACKED
+  (XXX, Key_1,           Key_2, Key_3, Key_4, Key_5,           XXX, // 7
+   XXX, TOPSY(LeftBracket), TOPSY(7), TOPSY(8), TOPSY(9), TOPSY(RightBracket), XXX, // 7 - top
+   XXX, TOPSY(Semicolon),   TOPSY(4), TOPSY(5), TOPSY(6), TOPSY(Equals),       // 6 - middle
+   XXX, TOPSY(Backtick),    TOPSY(1), TOPSY(2), TOPSY(3), TOPSY(Backslash),       XXX, // 7 - bottom
+   TOPSY(Period), TOPSY(0), TOPSY(Minus), XXX,
+   XXX,
+
+   XXX, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
+   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
+        XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
+   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
+   XXX, XXX,  XXX, XXX,
    XXX)
+   
+   
 
 ) // KEYMAPS(
 
@@ -492,9 +527,9 @@ KALEIDOSCOPE_INIT_PLUGINS(
   // and slowly moves the rainbow across your keyboard
   LEDRainbowWaveEffect,
 
-  // The chase effect follows the adventure of a blue pixel which chases a red pixel across
-  // your keyboard. Spoiler: the blue pixel never catches the red pixel
-  LEDChaseEffect,
+//  // The chase effect follows the adventure of a blue pixel which chases a red pixel across
+//  // your keyboard. Spoiler: the blue pixel never catches the red pixel
+//  LEDChaseEffect,
 
   // These static effects turn your keyboard's LEDs a variety of colors
   solidRed, solidOrange, solidYellow, solidGreen, solidBlue, solidIndigo, solidViolet,
@@ -502,12 +537,12 @@ KALEIDOSCOPE_INIT_PLUGINS(
   // The breathe effect slowly pulses all of the LEDs on your keyboard
   LEDBreatheEffect,
 
-  // The AlphaSquare effect prints each character you type, using your
-  // keyboard's LEDs as a display
-  AlphaSquareEffect,
-
-  // The stalker effect lights up the keys you've pressed recently
-  StalkerEffect,
+//  // The AlphaSquare effect prints each character you type, using your
+//  // keyboard's LEDs as a display
+//  AlphaSquareEffect,
+//
+//  // The stalker effect lights up the keys you've pressed recently
+//  StalkerEffect,
 
   // The LED Palette Theme plugin provides a shared palette for other plugins,
   // like Colormap below
@@ -516,9 +551,9 @@ KALEIDOSCOPE_INIT_PLUGINS(
   // The Colormap effect makes it possible to set up per-layer colormaps
   ColormapEffect,
 
-  // The numpad plugin is responsible for lighting up the 'numpad' mode
-  // with a custom LED effect
-  NumPad,
+//  // The numpad plugin is responsible for lighting up the 'numpad' mode
+//  // with a custom LED effect
+//  NumPad,
 
   // The macros plugin adds support for macros
   Macros,
@@ -534,6 +569,9 @@ KALEIDOSCOPE_INIT_PLUGINS(
   // actions - a bit like Macros, but triggered by pressing multiple keys at the
   // same time.
   MagicCombo,
+
+  // TopsyTurvy - invert shift keys
+  TopsyTurvy,
 
   // The USBQuirks plugin lets you do some things with USB that we aren't
   // comfortable - or able - to do automatically, but can be useful
@@ -564,8 +602,8 @@ void setup() {
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 7), Key_LeftShift),    // Left-Thumb-Shift
 //
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 8), Key_LeftShift),    // Right-Thumb-Shift
-//    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 8), Key_LeftControl),  // Right-Thumb-Cmd
-//    kaleidoscope::plugin::Qukey(0, KeyAddr(1, 8), Key_LeftAlt),      // Right-Thumb-Space
+    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 8), ShiftToLayer(SYM)),  // Right-Thumb-Cmd
+    kaleidoscope::plugin::Qukey(0, KeyAddr(1, 8), ShiftToLayer(NUM)),  // Right-Thumb-Space
     kaleidoscope::plugin::Qukey(0, KeyAddr(0, 8), ShiftToLayer(FUN)),  // Right-Thumb-Ctrl
 
     kaleidoscope::plugin::Qukey(0, KeyAddr(2, 11), Key_RightShift),    // Right-Home-N
@@ -586,12 +624,12 @@ void setup() {
   // First, call Kaleidoscope's internal setup function
   Kaleidoscope.setup();
 
-  // While we hope to improve this in the future, the NumPad plugin
-  // needs to be explicitly told which keymap layer is your numpad layer
-  NumPad.numPadLayer = NUMPAD;
+//  // While we hope to improve this in the future, the NumPad plugin
+//  // needs to be explicitly told which keymap layer is your numpad layer
+//  NumPad.numPadLayer = NUMPAD;
 
-  // We configure the AlphaSquare effect to use RED letters
-  AlphaSquare.color = CRGB(255, 0, 0);
+//  // We configure the AlphaSquare effect to use RED letters
+//  AlphaSquare.color = CRGB(255, 0, 0);
 
   // We set the brightness of the rainbow effects to 150 (on a scale of 0-255)
   // This draws more than 500mA, but looks much nicer than a dimmer effect
@@ -601,10 +639,10 @@ void setup() {
   // Set the action key the test mode should listen for to Left Fn
   HardwareTestMode.setActionKey(R3C6);
 
-  // The LED Stalker mode has a few effects. The one we like is called
-  // 'BlazingTrail'. For details on other options, see
-  // https://github.com/keyboardio/Kaleidoscope/blob/master/docs/plugins/LED-Stalker.md
-  StalkerEffect.variant = STALKER(BlazingTrail);
+//  // The LED Stalker mode has a few effects. The one we like is called
+//  // 'BlazingTrail'. For details on other options, see
+//  // https://github.com/keyboardio/Kaleidoscope/blob/master/docs/plugins/LED-Stalker.md
+//  StalkerEffect.variant = STALKER(BlazingTrail);
 
   // We want to make sure that the firmware starts with LED effects off
   // This avoids over-taxing devices that don't have a lot of power to share
