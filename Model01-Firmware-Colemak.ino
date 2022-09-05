@@ -149,7 +149,7 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { PRIMARY, COLEMAKDH, FUN, NUM, SYM, NAV, MOUSE, MEDIA }; // layers
+enum { PRIMARY, COLEMAKDH, FUN, NUM, SYM, NAV, MOUSE, WM }; // layers
 
 
 /**
@@ -177,8 +177,15 @@ enum { PRIMARY, COLEMAKDH, FUN, NUM, SYM, NAV, MOUSE, MEDIA }; // layers
  */
 // *INDENT-OFF*
 
+#define Key_CopyShortcut  LGUI(Key_C)
+#define Key_CutShortcut   LGUI(Key_X)
+#define Key_PasteShortcut LGUI(Key_V)
+
 #define Key_Undo LGUI(Key_Z)
 #define Key_Redo LGUI(LSHIFT(Key_Z))
+
+#define Key_AppWindowShortcut LCTRL(Key_DownArrow)
+#define Key_ShowDesktopShortcut Key_F11
 
 KEYMAPS(
 
@@ -188,14 +195,14 @@ KEYMAPS(
    Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
    Key_PageUp,   Key_A, Key_S, Key_D, Key_F, Key_G,
    Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
-   Key_Escape,   Key_Spacebar, Key_Tab, XXX,
+   Key_Delete,   Key_Backspace, Key_Tab, XXX,
    XXX,
 
    MoveToLayer(COLEMAKDH),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
    Key_Enter,     Key_Y, Key_U, Key_I,     Key_O,         Key_P,         Key_Equals,
                   Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, Key_Quote,
    M(MACRO_TOGGLE_QUKEYS), Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   XXX,           Key_Enter, Key_Backspace, Key_Delete,
+   XXX,           Key_Enter, Key_Spacebar, Key_Escape,
    XXX),
 
 #elif defined (PRIMARY_KEYMAP_DVORAK)
@@ -294,14 +301,14 @@ KEYMAPS(
    Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
    Key_PageUp,   Key_A, Key_R, Key_S, Key_T, Key_G,
    Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, Key_Escape,
-   Key_Escape,   Key_Spacebar, Key_Tab, XXX,
+   Key_Delete,   Key_Backspace, Key_Tab, XXX,
    XXX,
 
    MoveToLayer(PRIMARY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
    Key_Enter,     Key_J, Key_L, Key_U,     Key_Y,         Key_Semicolon, Key_Equals,
                   Key_M, Key_N, Key_E,     Key_I,         Key_O,         Key_Quote,
    M(MACRO_TOGGLE_QUKEYS),  Key_K, Key_H, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   XXX,           Key_Enter, Key_Backspace, Key_Delete,
+   XXX,           Key_Enter, Key_Spacebar, Key_Escape,
    XXX),
  
   
@@ -318,7 +325,7 @@ KEYMAPS(
    XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
         XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
    XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
-   XXX, XXX,  XXX, XXX,
+   XXX, Key_Enter, Key_Spacebar, Key_Escape,
    XXX),
 
   [NUM] = KEYMAP_STACKED
@@ -333,7 +340,7 @@ KEYMAPS(
    XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
         XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
    XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
-   XXX, XXX,  XXX, XXX,
+   XXX, Key_Enter, Key_Spacebar, Key_Escape,
    XXX),
 
   [SYM] = KEYMAP_STACKED
@@ -341,14 +348,14 @@ KEYMAPS(
    XXX, TOPSY(LeftBracket), TOPSY(7), TOPSY(8), TOPSY(9), TOPSY(RightBracket), XXX, // 7 - top
    XXX, TOPSY(Semicolon),   TOPSY(4), TOPSY(5), TOPSY(6), TOPSY(Equals),       // 6 - middle
    XXX, TOPSY(Backtick),    TOPSY(1), TOPSY(2), TOPSY(3), TOPSY(Backslash),       XXX, // 7 - bottom
-   TOPSY(Period), TOPSY(0), TOPSY(Minus), XXX,
+   Key_KeypadLeftParen, Key_KeypadRightParen, TOPSY(Minus), XXX,
    XXX,
 
    XXX, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
    XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
         XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
    XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
-   XXX, XXX,  XXX, XXX,
+   XXX, Key_Enter, Key_Spacebar, Key_Escape,
    XXX),
 
   [NAV] = KEYMAP_STACKED
@@ -356,14 +363,14 @@ KEYMAPS(
    Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
    Key_PageUp,   Key_LeftGui, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LFN2,
    Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, Key_Escape,
-   Key_Escape,   Key_Spacebar, Key_Tab, XXX,
+   Key_Delete,   Key_Backspace, Key_Tab, XXX,
    XXX,
 
    M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
-   Key_Enter,     Key_Redo, Key_Paste, Key_Copy,     Key_Cut,         Key_Undo, Key_Equals,
+   Key_Enter,     Key_Redo, Key_PasteShortcut, Key_CopyShortcut,  Key_CutShortcut,         Key_Undo, Key_Equals,
                   Key_CapsLock, Key_LeftArrow, Key_DownArrow, Key_UpArrow, Key_RightArrow, Key_Quote,
    Key_RightAlt,  Key_Insert,   Key_Home,      Key_PageDown,  Key_PageUp,  Key_End,        Key_Minus,
-   XXX,           Key_Enter, Key_Backspace, Key_Delete,
+   XXX,           Key_Enter, Key_Spacebar, Key_Escape,
    XXX),
 
   [MOUSE] = KEYMAP_STACKED
@@ -371,15 +378,32 @@ KEYMAPS(
    Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
    Key_PageUp,   Key_LeftGui, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LFN2,
    Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, Key_Escape,
-   Key_Escape,   Key_Spacebar, Key_Tab, XXX,
+   Key_Delete,   Key_Backspace, Key_Tab, XXX,
    XXX,
 
    M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
-   Key_Enter,     Key_Redo, Key_Paste, Key_Copy,     Key_Cut,         Key_Undo, Key_Equals,
+   Key_Enter,     Key_Redo, Key_PasteShortcut, Key_CopyShortcut,     Key_CutShortcut,         Key_Undo, Key_Equals,
                   Key_CapsLock, Key_mouseL, Key_mouseDn, Key_mouseUp, Key_mouseR, Key_Quote,
    Key_RightAlt,  Key_Insert,   Key_mouseScrollL,      Key_mouseScrollDn,  Key_mouseScrollUp,  Key_mouseScrollR,        Key_Minus,
    XXX,           Key_mouseBtnL, Key_mouseBtnL, Key_mouseBtnM,
-   XXX)   
+   XXX),
+
+
+  [WM] = KEYMAP_STACKED
+  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
+   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
+   Key_PageUp,   Key_LeftGui, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LFN2,
+   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, Key_Escape,
+   Key_Delete,   Key_Backspace, Key_Tab, XXX,
+   XXX,
+
+   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
+   Key_Enter,      Consumer_VolumeDecrement, Consumer_VolumeIncrement, Key_CopyShortcut,     Key_CutShortcut,         Key_Undo, Key_Equals,
+                  XXX, Key_Tab, Key_Backtick, Key_LeftBracket, Key_RightBracket, Key_Quote,
+   Key_RightAlt,  Key_Insert,   Key_Home,      Key_PageDown,  Key_PageUp,  Key_End,        Key_Minus,
+   XXX,           Key_Enter, Key_Spacebar, Key_Escape,
+   XXX),
+
 
 ) // KEYMAPS(
 
@@ -651,7 +675,7 @@ void setup() {
     kaleidoscope::plugin::Qukey(0, KeyAddr(2, 3), Key_LeftControl),     // Left-Home-S
     kaleidoscope::plugin::Qukey(0, KeyAddr(2, 4), Key_LeftShift),      // Left-Home-T
 
-//    kaleidoscope::plugin::Qukey(0, KeyAddr(0, 7), Key_LeftGui),      // Left-Thumb-Ctrl
+    kaleidoscope::plugin::Qukey(0, KeyAddr(0, 7), ShiftToLayer(WM)),      // Left-Thumb-Ctrl
     kaleidoscope::plugin::Qukey(0, KeyAddr(1, 7), ShiftToLayer(NAV)),  // Left-Thumb-Bksp
     kaleidoscope::plugin::Qukey(0, KeyAddr(2, 7), ShiftToLayer(MOUSE)),// Left-Thumb-Cmd
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 7), Key_LeftShift),    // Left-Thumb-Shift
