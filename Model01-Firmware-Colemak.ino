@@ -202,7 +202,7 @@ KEYMAPS(
    Key_Enter,     Key_Y, Key_U, Key_I,     Key_O,         Key_P,         Key_Equals,
                   Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, Key_Quote,
    M(MACRO_TOGGLE_QUKEYS), Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   XXX,           Key_Enter, Key_Spacebar, Key_Escape,
+   XXX,           Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
 
 #elif defined (PRIMARY_KEYMAP_DVORAK)
@@ -308,7 +308,7 @@ KEYMAPS(
    Key_Enter,     Key_J, Key_L, Key_U,     Key_Y,         Key_Semicolon, Key_Equals,
                   Key_M, Key_N, Key_E,     Key_I,         Key_O,         Key_Quote,
    M(MACRO_TOGGLE_QUKEYS),  Key_K, Key_H, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   XXX,           Key_Enter, Key_Spacebar, Key_Escape,
+   XXX,           Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
  
   
@@ -340,7 +340,7 @@ KEYMAPS(
    XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
         XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
    XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
-   XXX, Key_Enter, Key_Spacebar, Key_Escape,
+   XXX, Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
 
   [SYM] = KEYMAP_STACKED
@@ -348,7 +348,7 @@ KEYMAPS(
    XXX, TOPSY(LeftBracket), TOPSY(7), TOPSY(8), TOPSY(9), TOPSY(RightBracket), XXX, // 7 - top
    XXX, TOPSY(Semicolon),   TOPSY(4), TOPSY(5), TOPSY(6), TOPSY(Equals),       // 6 - middle
    XXX, TOPSY(Backtick),    TOPSY(1), TOPSY(2), TOPSY(3), TOPSY(Backslash),       XXX, // 7 - bottom
-   Key_KeypadLeftParen, Key_KeypadRightParen, TOPSY(Minus), XXX,
+   Key_LeftParen, Key_RightParen, TOPSY(Minus), XXX,
    XXX,
 
    XXX, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
@@ -370,7 +370,7 @@ KEYMAPS(
    Key_Enter,     Key_Redo, Key_PasteShortcut, Key_CopyShortcut,  Key_CutShortcut,         Key_Undo, Key_Equals,
                   Key_CapsLock, Key_LeftArrow, Key_DownArrow, Key_UpArrow, Key_RightArrow, Key_Quote,
    Key_RightAlt,  Key_Insert,   Key_Home,      Key_PageDown,  Key_PageUp,  Key_End,        Key_Minus,
-   XXX,           Key_Enter, Key_Spacebar, Key_Escape,
+   XXX,           Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
 
   [MOUSE] = KEYMAP_STACKED
@@ -401,7 +401,7 @@ KEYMAPS(
    Key_Enter,      Consumer_VolumeDecrement, Consumer_VolumeIncrement, Key_CopyShortcut,     Key_CutShortcut,         Key_Undo, Key_Equals,
                   XXX, Key_Tab, Key_Backtick, Key_LeftBracket, Key_RightBracket, Key_Quote,
    Key_RightAlt,  Key_Insert,   Key_Home,      Key_PageDown,  Key_PageUp,  Key_End,        Key_Minus,
-   XXX,           Key_Enter, Key_Spacebar, Key_Escape,
+   XXX,           Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
 
 
