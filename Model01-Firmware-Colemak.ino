@@ -150,7 +150,7 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { PRIMARY, COLEMAKDH, FUN, NUM, SYM, NAV, MOUSE, WM }; // layers
+enum { PRIMARY, COLEMAKDH, LSEL, RSEL, FUN, NUM, SYM, NAV, MOUSE, WM }; // layers
 
 
 /* This comment temporarily turns off astyle's indent enforcement
@@ -175,30 +175,60 @@ KEYMAPS(
    Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
    Key_PageUp,   Key_A, Key_S, Key_D, Key_F, Key_G,
    Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
-   Key_Delete,   Key_Backspace, Key_Tab, XXX,
-   XXX,
+   Key_Delete,   Key_Backspace, Key_LShift, Key_Tab,
+   ShiftToLayer(LSEL),
 
    MoveToLayer(COLEMAKDH),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
    Key_Enter,     Key_Y, Key_U, Key_I,     Key_O,         Key_P,         Key_Equals,
                   Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, Key_Quote,
    M(MACRO_TOGGLE_QUKEYS), Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   XXX,           Key_Escape, Key_Spacebar, Key_Enter,
-   XXX),
+   Key_Enter,     Key_RShift, Key_Spacebar, Key_Escape,
+   ShiftToLayer(RSEL)),
 
   [COLEMAKDH] = KEYMAP_STACKED
   (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
    Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
    Key_PageUp,   Key_A, Key_R, Key_S, Key_T, Key_G,
    Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, Key_Escape,
-   Key_Delete,   Key_Backspace, Key_Tab, XXX,
-   XXX,
+   Key_Delete,   Key_Backspace, Key_LShift, Key_Tab,
+   ShiftToLayer(LSEL),
 
    MoveToLayer(PRIMARY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
    Key_Enter,     Key_J, Key_L, Key_U,     Key_Y,         Key_Semicolon, Key_Equals,
                   Key_M, Key_N, Key_E,     Key_I,         Key_O,         Key_Quote,
    M(MACRO_TOGGLE_QUKEYS),  Key_K, Key_H, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   XXX,           Key_Escape, Key_Spacebar, Key_Enter,
-   XXX),
+   Key_Enter,     Key_RShift, Key_Spacebar, Key_Escape,
+   ShiftToLayer(RSEL)),
+  
+  [LSEL] = KEYMAP_STACKED
+  (___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, Key_LeftGui, Key_LeftAlt, Key_LeftControl, Key_LeftShift, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ShiftToLayer(WM), ShiftToLayer(NAV), ShiftToLayer(MOUSE), ___,
+   ___,
+
+   ___,  ___, ___, ___, ___, ___, ___,
+   ___,  ___, ___, ___, ___, ___, ___,
+         ___, ___, ___, ___, ___, ___,
+   ___,  ___, ___, ___, ___, ___, ___,
+   ___,  ___, ___, ___,
+   ___),
+
+  [RSEL] = KEYMAP_STACKED
+  (___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
+   ___,
+
+   ___,  ___, ___, ___, ___, ___, ___,
+   ___,  ___, ___, ___, ___, ___, ___,
+         ___, Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, ___, // 6 - middle
+   ___,  ___, ___, ___, ___, ___, ___,
+   ___,  ShiftToLayer(SYM), ShiftToLayer(NUM), ShiftToLayer(FUN),
+   ___),  
  
   [FUN] = KEYMAP_STACKED
   (XXX, Key_1,   Key_2,  Key_3,  Key_4,  Key_5,           XXX, // 7
@@ -290,6 +320,23 @@ KEYMAPS(
    XXX,           Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
 
+  /*
+
+  (___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
+   ___,
+
+   ___,  ___, ___, ___, ___, ___, ___,
+   ___,  ___, ___, ___, ___, ___, ___,
+         ___, ___, ___, ___, ___, ___,
+   ___,  ___, ___, ___, ___, ___, ___,
+   ___,  ___, ___, ___,
+   ___),
+  */
+  
 
 ) // KEYMAPS(
 
@@ -457,7 +504,7 @@ KALEIDOSCOPE_INIT_PLUGINS(
   EEPROMKeymap,
 
   // Quantum keys
-  Qukeys,
+  //  Qukeys,
   
   // Focus allows bi-directional communication with the host, and is the
   // interface through which the keymap in EEPROM can be edited.
@@ -553,6 +600,8 @@ KALEIDOSCOPE_INIT_PLUGINS(
  */
 void setup() {
 
+  /*
+    
   // The following Qukey definitions are for the left side of the home row (and
   // the left palm key) of the Keyboardio Model01 keyboard.  For other
   // keyboards, the `KeyAddr(row, col)` coordinates will need adjustment.
@@ -582,12 +631,15 @@ void setup() {
 
 //    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 6), ShiftToLayer(1))   // Q/layer-shift (on `fn`)
   )
+
   Qukeys.setHoldTimeout(250);
   Qukeys.setMaxIntervalForTapRepeat(25);
   Qukeys.setOverlapThreshold(100);
   Qukeys.setMinimumHoldTime(150);
   Qukeys.setMinimumPriorInterval(150);
 
+  */
+  
   // First, call Kaleidoscope's internal setup function
   Kaleidoscope.setup();
 
