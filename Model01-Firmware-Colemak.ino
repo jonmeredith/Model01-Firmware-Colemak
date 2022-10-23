@@ -1,3 +1,4 @@
+
 // -*- mode: c++ -*-
 // Copyright 2016 Keyboardio, inc. <jesse@keyboard.io>
 // See "LICENSE" for license details
@@ -152,26 +153,6 @@ enum { MACRO_VERSION_INFO,
 enum { PRIMARY, COLEMAKDH, FUN, NUM, SYM, NAV, MOUSE, WM }; // layers
 
 
-/**
-  * To change your keyboard's layout from QWERTY to DVORAK or COLEMAK, comment out the line
-  *
-  * #define PRIMARY_KEYMAP_QWERTY
-  *
-  * by changing it to
-  *
-  * // #define PRIMARY_KEYMAP_QWERTY
-  *
-  * Then uncomment the line corresponding to the layout you want to use.
-  *
-  */
-
-#define PRIMARY_KEYMAP_QWERTY
-// #define PRIMARY_KEYMAP_DVORAK
-// #define PRIMARY_KEYMAP_COLEMAK
-// #define PRIMARY_KEYMAP_CUSTOM // COLEMAK-DH
-
-
-
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
  */
@@ -189,7 +170,6 @@ enum { PRIMARY, COLEMAKDH, FUN, NUM, SYM, NAV, MOUSE, WM }; // layers
 
 KEYMAPS(
 
-#if defined (PRIMARY_KEYMAP_QWERTY)
   [PRIMARY] = KEYMAP_STACKED
   (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
    Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
@@ -205,97 +185,6 @@ KEYMAPS(
    XXX,           Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
 
-#elif defined (PRIMARY_KEYMAP_DVORAK)
-
-  [PRIMARY] = KEYMAP_STACKED
-  (XXX,          Key_1,         Key_2,     Key_3,      Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
-   Key_PageUp,   Key_A,         Key_O,     Key_E,      Key_U, Key_I,
-   Key_PageDown, Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
-   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
-   ShiftToLayer(FUNCTION),
-
-   M(MACRO_ANY),   Key_6, Key_7, Key_8, Key_9, Key_0, LockLayer(NUMPAD),
-   Key_Enter,      Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
-                   Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
-   Key_RightAlt,   Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
-   ShiftToLayer(FUNCTION)),
-
-#elif defined (PRIMARY_KEYMAP_COLEMAK)
-
-  [PRIMARY] = KEYMAP_STACKED
-  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_G, Key_Tab,
-   Key_PageUp,   Key_A, Key_R, Key_S, Key_T, Key_D,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
-   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
-   ShiftToLayer(FUNCTION),
-
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
-   Key_Enter,     Key_J, Key_L, Key_U,     Key_Y,         Key_Semicolon, Key_Equals,
-                  Key_H, Key_N, Key_E,     Key_I,         Key_O,         Key_Quote,
-   Key_RightAlt,  Key_K, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
-   ShiftToLayer(FUNCTION)),
-
-#elif defined (PRIMARY_KEYMAP_CUSTOM)
-
-  // Edit this keymap to make a custom layout
-  [PRIMARY] = KEYMAP_STACKED
-  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
-   Key_PageUp,   Key_A, Key_R, Key_S, Key_T, Key_G,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, Key_Escape,
-   Key_Escape,   Key_Spacebar, Key_Tab, XXX,
-   XXX,
-
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
-   Key_Enter,     Key_J, Key_L, Key_U,     Key_Y,         Key_Semicolon, Key_Equals,
-                  Key_M, Key_N, Key_E,     Key_I,         Key_O,         Key_Quote,
-   Key_RightAlt,  Key_K, Key_H, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   XXX,           Key_Enter, Key_Backspace, Key_Delete,
-   XXX),
-   
-#else
-
-#error "No default keymap defined. You should make sure that you have a line like '#define PRIMARY_KEYMAP_QWERTY' in your sketch"
-
-#endif
-
-
-
-//  [NUMPAD] =  KEYMAP_STACKED
-//  (XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-//   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-//   XXX, XXX, XXX, XXX, XXX, XXX,
-//   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-//   XXX, XXX, XXX, XXX,
-//   XXX,
-//
-//   M(MACRO_VERSION_INFO),  XXX, Key_7, Key_8,      Key_9,              Key_KeypadSubtract, XXX,
-//   XXX,                    XXX, Key_4, Key_5,      Key_6,              Key_KeypadAdd,      XXX,
-//                           XXX, Key_1, Key_2,      Key_3,              Key_Equals,         XXX,
-//   XXX,                    XXX, Key_0, Key_Period, Key_KeypadMultiply, Key_KeypadDivide,   Key_Enter,
-//   XXX, XXX, XXX, XXX,
-//   XXX),
-//
-//  [FUNCTION] =  KEYMAP_STACKED
-//  (XXX,      Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           Key_CapsLock,
-//   Key_Tab,  XXX,              Key_mouseUp, XXX,        Key_mouseBtnR, Key_mouseWarpEnd, Key_mouseWarpNE,
-//   Key_Home, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseBtnL, Key_mouseWarpNW,
-//   Key_End,  Key_PrintScreen,  Key_Insert,  XXX,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
-//   XXX, Key_Delete, XXX, XXX,
-//   XXX,
-//
-//   Consumer_ScanPreviousTrack, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
-//   Consumer_PlaySlashPause,    Consumer_ScanNextTrack, Key_LeftCurlyBracket,     Key_RightCurlyBracket,    Key_LeftBracket, Key_RightBracket, Key_F12,
-//                               Key_LeftArrow,          Key_DownArrow,            Key_UpArrow,              Key_RightArrow,  XXX,              XXX,
-//   Key_PcApplication,          Consumer_Mute,          Consumer_VolumeDecrement, Consumer_VolumeIncrement, XXX,             Key_Backslash,    Key_Pipe,
-//   XXX, XXX, Key_Enter, XXX,
-//   XXX),
-
-  // Edit this keymap to make a custom layout
   [COLEMAKDH] = KEYMAP_STACKED
   (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
    Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
@@ -311,8 +200,6 @@ KEYMAPS(
    XXX,           Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
  
-  
-     // Edit this keymap to make a custom layout
   [FUN] = KEYMAP_STACKED
   (XXX, Key_1,   Key_2,  Key_3,  Key_4,  Key_5,           XXX, // 7
    XXX, Key_F12, Key_F7, Key_F8, Key_F9, Key_PrintScreen, XXX, // 7 - top
@@ -387,7 +274,6 @@ KEYMAPS(
    Key_RightAlt,  Key_Insert,   Key_mouseScrollL,      Key_mouseScrollDn,  Key_mouseScrollUp,  Key_mouseScrollR,        Key_Minus,
    XXX,           Key_mouseBtnL, Key_mouseBtnL, Key_mouseBtnM,
    XXX),
-
 
   [WM] = KEYMAP_STACKED
   (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
