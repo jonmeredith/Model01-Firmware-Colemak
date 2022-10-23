@@ -39,18 +39,19 @@
 // Support for the "Boot greeting" effect, which pulses the 'LED' button for 10s
 // when the keyboard is connected to a computer (or that computer is powered on)
 #include "Kaleidoscope-LEDEffect-BootGreeting.h"
+#include "Kaleidoscope-LED-ActiveLayerColor.h"
 
 // Support for LED modes that set all LEDs to a single color
-#include "Kaleidoscope-LEDEffect-SolidColor.h"
+//#include "Kaleidoscope-LEDEffect-SolidColor.h"
 
 // Support for an LED mode that makes all the LEDs 'breathe'
-#include "Kaleidoscope-LEDEffect-Breathe.h"
+//#include "Kaleidoscope-LEDEffect-Breathe.h"
 
 //// Support for an LED mode that makes a red pixel chase a blue pixel across the keyboard
 //#include "Kaleidoscope-LEDEffect-Chase.h"
 
 // Support for LED modes that pulse the keyboard's LED in a rainbow pattern
-#include "Kaleidoscope-LEDEffect-Rainbow.h"
+//#include "Kaleidoscope-LEDEffect-Rainbow.h"
 
 //// Support for an LED mode that lights up the keys as you press them
 //#include "Kaleidoscope-LED-Stalker.h"
@@ -59,10 +60,10 @@
 //#include "Kaleidoscope-LED-AlphaSquare.h"
 
 // Support for shared palettes for other plugins, like Colormap below
-#include "Kaleidoscope-LED-Palette-Theme.h"
+//#include "Kaleidoscope-LED-Palette-Theme.h"
 
 // Support for an LED mode that lets one configure per-layer color maps
-#include "Kaleidoscope-Colormap.h"
+//#include "Kaleidoscope-Colormap.h"
 
 // Support for Keyboardio's internal keyboard testing mode
 #include "Kaleidoscope-HardwareTestMode.h"
@@ -95,9 +96,9 @@
   * a macro key is pressed.
   */
 
-enum { MACRO_VERSION_INFO,
-       MACRO_ANY,
-       MACRO_TOGGLE_QUKEYS
+enum { MACRO_VERSION_INFO
+       //       MACRO_ANY,
+       //MACRO_TOGGLE_QUKEYS
      };
 
 
@@ -142,14 +143,29 @@ enum { MACRO_VERSION_INFO,
   * Similarly, a key defined as 'LockLayer(NUMPAD)' will switch to NUMPAD when tapped.
   */
 
-/**
-  * Layers are "0-indexed" -- That is the first one is layer 0. The second one is layer 1.
-  * The third one is layer 2.
-  * This 'enum' lets us use names like QWERTY, FUNCTION, and NUMPAD in place of
-  * the numbers 0, 1 and 2.
-  *
-  */
 
+
+
+  // Define an EGA palette. Conveniently, that's exactly 16 colors, just like the
+ #define C_BLACK    CRGB(0x00, 0x00, 0x00)
+ #define C_BLUE    CRGB(0x00, 0x00, 0xaa)
+ #define C_GREEN    CRGB(0x00, 0xaa, 0x00)
+ #define C_CYAN    CRGB(0x00, 0xaa, 0xaa)
+ #define C_RED   CRGB(0xaa, 0x00, 0x00)
+ #define C_MAGENTA    CRGB(0xaa, 0x00, 0xaa)
+ #define C_BROWN    CRGB(0xaa, 0x55, 0x00)
+ #define C_LGRAY    CRGB(0xaa, 0xaa, 0xaa)
+ #define C_DGRAY    CRGB(0x55, 0x55, 0x55)
+ #define C_BBLUE    CRGB(0x55, 0x55, 0xff)
+ #define C_BGREEN    CRGB(0x55, 0xff, 0x55)
+ #define C_BCYAN    CRGB(0x55, 0xff, 0xff)
+ #define C_BRED    CRGB(0xff, 0x55, 0x55)
+ #define C_BMAGENTA    CRGB(0xff, 0x55, 0xff)
+ #define C_YELLOW    CRGB(0xff, 0xff, 0x55)
+ #define C_WHITE    CRGB(0xff, 0xff, 0xff)
+
+static const cRGB LAYER_COLORMAP[] PROGMEM = {
+   C_BLACK, C_BLACK, C_WHITE, C_WHITE, C_RED, C_BLUE, C_GREEN, C_YELLOW, C_CYAN, C_MAGENTA };
 enum { PRIMARY, COLEMAKDH, LSEL, RSEL, FUN, NUM, SYM, NAV, MOUSE, WM }; // layers
 
 
@@ -171,17 +187,17 @@ enum { PRIMARY, COLEMAKDH, LSEL, RSEL, FUN, NUM, SYM, NAV, MOUSE, WM }; // layer
 KEYMAPS(
 
   [PRIMARY] = KEYMAP_STACKED
-  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
+  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, LockLayer(FUN),
+   Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, LockLayer(NUM),
    Key_PageUp,   Key_A, Key_S, Key_D, Key_F, Key_G,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
+   Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, LockLayer(SYM),
    Key_Delete,   Key_Backspace, Key_LShift, Key_Tab,
    ShiftToLayer(LSEL),
 
-   MoveToLayer(COLEMAKDH),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
-   Key_Enter,     Key_Y, Key_U, Key_I,     Key_O,         Key_P,         Key_Equals,
-                  Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, Key_Quote,
-   M(MACRO_TOGGLE_QUKEYS), Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
+   LockLayer(WM),    Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
+   LockLayer(NAV),   Key_Y, Key_U, Key_I,     Key_O,         Key_P,         Key_Equals,
+                     Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, Key_Quote,
+   LockLayer(MOUSE), Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
    Key_Enter,     Key_RShift, Key_Spacebar, Key_Escape,
    ShiftToLayer(RSEL)),
 
@@ -196,7 +212,7 @@ KEYMAPS(
    MoveToLayer(PRIMARY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
    Key_Enter,     Key_J, Key_L, Key_U,     Key_Y,         Key_Semicolon, Key_Equals,
                   Key_M, Key_N, Key_E,     Key_I,         Key_O,         Key_Quote,
-   M(MACRO_TOGGLE_QUKEYS),  Key_K, Key_H, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
+   ___,  Key_K, Key_H, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
    Key_Enter,     Key_RShift, Key_Spacebar, Key_Escape,
    ShiftToLayer(RSEL)),
   
@@ -231,92 +247,92 @@ KEYMAPS(
    ___),  
  
   [FUN] = KEYMAP_STACKED
-  (XXX, Key_1,   Key_2,  Key_3,  Key_4,  Key_5,           XXX, // 7
-   XXX, Key_F12, Key_F7, Key_F8, Key_F9, Key_PrintScreen, XXX, // 7 - top
+  (XXX, Key_1,   Key_2,  Key_3,  Key_4,  Key_5,           ___, // 7
+   XXX, Key_F12, Key_F7, Key_F8, Key_F9, Key_PrintScreen, ___, // 7 - top
    XXX, Key_F11, Key_F4, Key_F5, Key_F6, Key_ScrollLock,       // 6 - middle
-   XXX, Key_F10, Key_F1, Key_F2, Key_F3, Key_Pause,       XXX, // 7 - bottom
+   XXX, Key_F10, Key_F1, Key_F2, Key_F3, Key_Pause,       ___, // 7 - bottom
    Key_LeftGui, Key_Space, Key_Tab, XXX,
    XXX,
 
-   XXX, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
-   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
+   ___, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
+   ___, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
         XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
-   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
+   ___, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
    XXX, Key_Enter, Key_Spacebar, Key_Escape,
    XXX),
 
   [NUM] = KEYMAP_STACKED
-  (XXX, Key_1,           Key_2, Key_3, Key_4, Key_5,           XXX, // 7
-   XXX, Key_LeftBracket, Key_7, Key_8, Key_9, Key_RightBracket, XXX, // 7 - top
+  (XXX, Key_1,           Key_2, Key_3, Key_4, Key_5,           ___, // 7
+   XXX, Key_LeftBracket, Key_7, Key_8, Key_9, Key_RightBracket, ___, // 7 - top
    XXX, Key_Semicolon,   Key_4, Key_5, Key_6, Key_Equals,       // 6 - middle
-   XXX, Key_Backtick,    Key_1, Key_2, Key_3, Key_Backslash,       XXX, // 7 - bottom
+   XXX, Key_Backtick,    Key_1, Key_2, Key_3, Key_Backslash,       ___, // 7 - bottom
    Key_Period, Key_0, Key_Minus, XXX,
    XXX,
 
-   XXX, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
-   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
+   ___, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
+   ___, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
         XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
-   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
+   ___, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
    XXX, Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
 
   [SYM] = KEYMAP_STACKED
-  (XXX, Key_1,           Key_2, Key_3, Key_4, Key_5,           XXX, // 7
-   XXX, TOPSY(LeftBracket), TOPSY(7), TOPSY(8), TOPSY(9), TOPSY(RightBracket), XXX, // 7 - top
+  (XXX, Key_1,           Key_2, Key_3, Key_4, Key_5,           ___, // 7
+   XXX, TOPSY(LeftBracket), TOPSY(7), TOPSY(8), TOPSY(9), TOPSY(RightBracket), ___, // 7 - top
    XXX, TOPSY(Semicolon),   TOPSY(4), TOPSY(5), TOPSY(6), TOPSY(Equals),       // 6 - middle
-   XXX, TOPSY(Backtick),    TOPSY(1), TOPSY(2), TOPSY(3), TOPSY(Backslash),       XXX, // 7 - bottom
+   XXX, TOPSY(Backtick),    TOPSY(1), TOPSY(2), TOPSY(3), TOPSY(Backslash), ___, // 7 - bottom
    Key_LeftParen, Key_RightParen, TOPSY(Minus), XXX,
    XXX,
 
-   XXX, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
-   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
+   ___, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
+   ___, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
         XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
-   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
+   ___, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
    XXX, Key_Enter, Key_Spacebar, Key_Escape,
    XXX),
 
   [NAV] = KEYMAP_STACKED
-  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
+  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, ___,
+   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, ___,
    Key_PageUp,   Key_LeftGui, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LFN2,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, Key_Escape,
+   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, ___,
    Key_Delete,   Key_Backspace, Key_Tab, XXX,
    XXX,
 
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
-   Key_Enter,     Key_Redo, Key_PasteShortcut, Key_CopyShortcut,  Key_CutShortcut,         Key_Undo, Key_Equals,
+   ___,  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
+   ___,     Key_Redo, Key_PasteShortcut, Key_CopyShortcut,  Key_CutShortcut,         Key_Undo, Key_Equals,
                   Key_CapsLock, Key_LeftArrow, Key_DownArrow, Key_UpArrow, Key_RightArrow, Key_Quote,
-   Key_RightAlt,  Key_Insert,   Key_Home,      Key_PageDown,  Key_PageUp,  Key_End,        Key_Minus,
+   ___,  Key_Insert,   Key_Home,      Key_PageDown,  Key_PageUp,  Key_End,        Key_Minus,
    XXX,           Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
 
   [MOUSE] = KEYMAP_STACKED
-  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
+  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, ___,
+   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, ___,
    Key_PageUp,   Key_LeftGui, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LFN2,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, Key_Escape,
+   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, ___,
    Key_Delete,   Key_Backspace, Key_Tab, XXX,
    XXX,
 
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
-   Key_Enter,     Key_Redo, Key_PasteShortcut, Key_CopyShortcut,     Key_CutShortcut,         Key_Undo, Key_Equals,
+   ___,  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
+   ___,     Key_Redo, Key_PasteShortcut, Key_CopyShortcut,     Key_CutShortcut,         Key_Undo, Key_Equals,
                   Key_CapsLock, Key_mouseL, Key_mouseDn, Key_mouseUp, Key_mouseR, Key_Quote,
-   Key_RightAlt,  Key_Insert,   Key_mouseScrollL,      Key_mouseScrollDn,  Key_mouseScrollUp,  Key_mouseScrollR,        Key_Minus,
+   ___,  Key_Insert,   Key_mouseScrollL,      Key_mouseScrollDn,  Key_mouseScrollUp,  Key_mouseScrollR,        Key_Minus,
    XXX,           Key_mouseBtnL, Key_mouseBtnL, Key_mouseBtnM,
    XXX),
 
   [WM] = KEYMAP_STACKED
-  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
+  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, ___,
+   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, ___,
    Key_PageUp,   Key_LeftGui, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LFN2,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, Key_Escape,
+   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, ___,
    Key_Delete,   Key_Backspace, Key_Tab, XXX,
    XXX,
 
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
-   Key_Enter,      Consumer_VolumeDecrement, Consumer_VolumeIncrement, Key_CopyShortcut,     Key_CutShortcut,         Key_Undo, Key_Equals,
+   ___,  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
+   ___,      Consumer_VolumeDecrement, Consumer_VolumeIncrement, Key_CopyShortcut,     Key_CutShortcut,         Key_Undo, Key_Equals,
                   XXX, Key_Tab, Key_Backtick, Key_LeftBracket, Key_RightBracket, Key_Quote,
-   Key_RightAlt,  Key_Insert,   Key_Home,      Key_PageDown,  Key_PageUp,  Key_End,        Key_Minus,
+   ___,  Key_Insert,   Key_Home,      Key_PageDown,  Key_PageUp,  Key_End,        Key_Minus,
    XXX,           Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
 
@@ -355,29 +371,6 @@ static void versionInfoMacro(uint8_t keyState) {
   }
 }
 
-/** anyKeyMacro is used to provide the functionality of the 'Any' key.
- *
- * When the 'any key' macro is toggled on, a random alphanumeric key is
- * selected. While the key is held, the function generates a synthetic
- * keypress event repeating that randomly selected key.
- *
- */
-
-static void anyKeyMacro(uint8_t keyState) {
-  static Key lastKey;
-  /*
-  bool toggledOn = false;
-  if (keyToggledOn(keyState)) {
-    lastKey.setKeyCode(Key_A.getKeyCode() + (uint8_t)(millis() % 36));
-    toggledOn = true;
-  }
-
-  if (keyIsPressed(keyState))
-    Kaleidoscope.hid().keyboard().pressKey(lastKey, toggledOn);
-  */
-}
-
-
 /** macroAction dispatches keymap events that are tied to a macro
     to that macro. It takes two uint8_t parameters.
 
@@ -398,14 +391,6 @@ const macro_t *macroAction(uint8_t macro_id, KeyEvent &event) {
     versionInfoMacro(event.state);
     break;
 
-  case MACRO_ANY:
-    anyKeyMacro(event.state);
-    break;
-
-  case MACRO_TOGGLE_QUKEYS:
-    if (keyToggledOn(event.state))
-      Qukeys.toggle();
-    break;
   }
 
   return MACRO_NONE;
@@ -418,13 +403,13 @@ const macro_t *macroAction(uint8_t macro_id, KeyEvent &event) {
 // Keyboardio Model 01.
 
 
-static kaleidoscope::plugin::LEDSolidColor solidRed(160, 0, 0);
-static kaleidoscope::plugin::LEDSolidColor solidOrange(140, 70, 0);
-static kaleidoscope::plugin::LEDSolidColor solidYellow(130, 100, 0);
-static kaleidoscope::plugin::LEDSolidColor solidGreen(0, 160, 0);
-static kaleidoscope::plugin::LEDSolidColor solidBlue(0, 70, 130);
-static kaleidoscope::plugin::LEDSolidColor solidIndigo(0, 0, 170);
-static kaleidoscope::plugin::LEDSolidColor solidViolet(130, 0, 120);
+// static kaleidoscope::plugin::LEDSolidColor solidRed(160, 0, 0);
+// static kaleidoscope::plugin::LEDSolidColor solidOrange(140, 70, 0);
+// static kaleidoscope::plugin::LEDSolidColor solidYellow(130, 100, 0);
+// static kaleidoscope::plugin::LEDSolidColor solidGreen(0, 160, 0);
+// static kaleidoscope::plugin::LEDSolidColor solidBlue(0, 70, 130);
+// static kaleidoscope::plugin::LEDSolidColor solidIndigo(0, 0, 170);
+// static kaleidoscope::plugin::LEDSolidColor solidViolet(130, 0, 120);
 
 /** toggleLedsOnSuspendResume toggles the LEDs off when the host goes to sleep,
  * and turns them back on when it wakes up.
@@ -531,25 +516,27 @@ KALEIDOSCOPE_INIT_PLUGINS(
   LEDControl,
 
   // We start with the LED effect that turns off all the LEDs.
-  LEDOff,
+  //  LEDOff,
+
+  LEDActiveLayerColorEffect,
 
   // The rainbow effect changes the color of all of the keyboard's keys at the same time
   // running through all the colors of the rainbow.
-  LEDRainbowEffect,
+//  LEDRainbowEffect,
 
   // The rainbow wave effect lights up your keyboard with all the colors of a rainbow
   // and slowly moves the rainbow across your keyboard
-  LEDRainbowWaveEffect,
+//  LEDRainbowWaveEffect,
 
 //  // The chase effect follows the adventure of a blue pixel which chases a red pixel across
 //  // your keyboard. Spoiler: the blue pixel never catches the red pixel
 //  LEDChaseEffect,
 
   // These static effects turn your keyboard's LEDs a variety of colors
-  solidRed, solidOrange, solidYellow, solidGreen, solidBlue, solidIndigo, solidViolet,
+  //  solidRed, solidOrange, solidYellow, solidGreen, solidBlue, solidIndigo, solidViolet,
 
   // The breathe effect slowly pulses all of the LEDs on your keyboard
-  LEDBreatheEffect,
+//  LEDBreatheEffect,
 
 //  // The AlphaSquare effect prints each character you type, using your
 //  // keyboard's LEDs as a display
@@ -560,10 +547,10 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   // The LED Palette Theme plugin provides a shared palette for other plugins,
   // like Colormap below
-  LEDPaletteTheme,
+//  LEDPaletteTheme,
 
   // The Colormap effect makes it possible to set up per-layer colormaps
-  ColormapEffect,
+//  ColormapEffect,
 
 //  // The numpad plugin is responsible for lighting up the 'numpad' mode
 //  // with a custom LED effect
@@ -643,6 +630,9 @@ void setup() {
   // First, call Kaleidoscope's internal setup function
   Kaleidoscope.setup();
 
+
+  LEDActiveLayerColorEffect.setColormap(LAYER_COLORMAP);
+  
 //  // While we hope to improve this in the future, the NumPad plugin
 //  // needs to be explicitly told which keymap layer is your numpad layer
 //  NumPad.numPadLayer = NUMPAD;
@@ -652,8 +642,8 @@ void setup() {
 
   // We set the brightness of the rainbow effects to 150 (on a scale of 0-255)
   // This draws more than 500mA, but looks much nicer than a dimmer effect
-  LEDRainbowEffect.brightness(150);
-  LEDRainbowWaveEffect.brightness(150);
+//  LEDRainbowEffect.brightness(150);
+//  LEDRainbowWaveEffect.brightness(150);
 
   // Set the action key the test mode should listen for to Left Fn
   HardwareTestMode.setActionKey(R3C6);
@@ -678,7 +668,7 @@ void setup() {
   // We need to tell the Colormap plugin how many layers we want to have custom
   // maps for. To make things simple, we set it to five layers, which is how
   // many editable layers we have (see above).
-  ColormapEffect.max_layers(5);
+  // ColormapEffect.max_layers(5);
 }
 
 /** loop is the second of the standard Arduino sketch functions.
