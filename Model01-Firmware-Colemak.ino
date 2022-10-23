@@ -33,37 +33,10 @@
 // Support for controlling the keyboard's LEDs
 #include "Kaleidoscope-LEDControl.h"
 
-//// Support for "Numpad" mode, which is mostly just the Numpad specific LED mode
-//#include "Kaleidoscope-NumPad.h"
-
 // Support for the "Boot greeting" effect, which pulses the 'LED' button for 10s
 // when the keyboard is connected to a computer (or that computer is powered on)
 #include "Kaleidoscope-LEDEffect-BootGreeting.h"
-#include "Kaleidoscope-LED-ActiveLayerColor.h"
-
-// Support for LED modes that set all LEDs to a single color
-//#include "Kaleidoscope-LEDEffect-SolidColor.h"
-
-// Support for an LED mode that makes all the LEDs 'breathe'
-//#include "Kaleidoscope-LEDEffect-Breathe.h"
-
-//// Support for an LED mode that makes a red pixel chase a blue pixel across the keyboard
-//#include "Kaleidoscope-LEDEffect-Chase.h"
-
-// Support for LED modes that pulse the keyboard's LED in a rainbow pattern
-//#include "Kaleidoscope-LEDEffect-Rainbow.h"
-
-//// Support for an LED mode that lights up the keys as you press them
-//#include "Kaleidoscope-LED-Stalker.h"
-
-//// Support for an LED mode that prints the keys you press in letters 4px high
-//#include "Kaleidoscope-LED-AlphaSquare.h"
-
-// Support for shared palettes for other plugins, like Colormap below
-//#include "Kaleidoscope-LED-Palette-Theme.h"
-
-// Support for an LED mode that lets one configure per-layer color maps
-//#include "Kaleidoscope-Colormap.h"
+// #include "Kaleidoscope-LED-ActiveLayerColor.h"
 
 // Support for Keyboardio's internal keyboard testing mode
 #include "Kaleidoscope-HardwareTestMode.h"
@@ -97,8 +70,6 @@
   */
 
 enum { MACRO_VERSION_INFO
-       //       MACRO_ANY,
-       //MACRO_TOGGLE_QUKEYS
      };
 
 
@@ -202,10 +173,10 @@ KEYMAPS(
    ShiftToLayer(RSEL)),
 
   [COLEMAKDH] = KEYMAP_STACKED
-  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
+  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, LockLayer(FUN),
+   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, LockLayer(NUM),
    Key_PageUp,   Key_A, Key_R, Key_S, Key_T, Key_G,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, Key_Escape,
+   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, LockLayer(SYM),
    Key_Delete,   Key_Backspace, Key_LShift, Key_Tab,
    ShiftToLayer(LSEL),
 
@@ -248,91 +219,91 @@ KEYMAPS(
  
   [FUN] = KEYMAP_STACKED
   (XXX, Key_1,   Key_2,  Key_3,  Key_4,  Key_5,           ___, // 7
-   XXX, Key_F12, Key_F7, Key_F8, Key_F9, Key_PrintScreen, ___, // 7 - top
+   XXX, Key_F12, Key_F7, Key_F8, Key_F9, Key_PrintScreen, XXX, // 7 - top
    XXX, Key_F11, Key_F4, Key_F5, Key_F6, Key_ScrollLock,       // 6 - middle
-   XXX, Key_F10, Key_F1, Key_F2, Key_F3, Key_Pause,       ___, // 7 - bottom
+   XXX, Key_F10, Key_F1, Key_F2, Key_F3, Key_Pause,       XXX, // 7 - bottom
    Key_LeftGui, Key_Space, Key_Tab, XXX,
    XXX,
 
-   ___, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
-   ___, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
+   XXX, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
+   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
         XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
-   ___, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
+   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
    XXX, Key_Enter, Key_Spacebar, Key_Escape,
    XXX),
 
   [NUM] = KEYMAP_STACKED
-  (XXX, Key_1,           Key_2, Key_3, Key_4, Key_5,           ___, // 7
+  (XXX, Key_1,           Key_2, Key_3, Key_4, Key_5,           XXX, // 7
    XXX, Key_LeftBracket, Key_7, Key_8, Key_9, Key_RightBracket, ___, // 7 - top
    XXX, Key_Semicolon,   Key_4, Key_5, Key_6, Key_Equals,       // 6 - middle
-   XXX, Key_Backtick,    Key_1, Key_2, Key_3, Key_Backslash,       ___, // 7 - bottom
+   XXX, Key_Backtick,    Key_1, Key_2, Key_3, Key_Backslash,       XXX, // 7 - bottom
    Key_Period, Key_0, Key_Minus, XXX,
    XXX,
 
-   ___, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
-   ___, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
+   XXX, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
+   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
         XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
-   ___, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
+   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
    XXX, Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
 
   [SYM] = KEYMAP_STACKED
-  (XXX, Key_1,           Key_2, Key_3, Key_4, Key_5,           ___, // 7
-   XXX, TOPSY(LeftBracket), TOPSY(7), TOPSY(8), TOPSY(9), TOPSY(RightBracket), ___, // 7 - top
+  (XXX, Key_1,           Key_2, Key_3, Key_4, Key_5,           XXX, // 7
+   XXX, TOPSY(LeftBracket), TOPSY(7), TOPSY(8), TOPSY(9), TOPSY(RightBracket), XXX, // 7 - top
    XXX, TOPSY(Semicolon),   TOPSY(4), TOPSY(5), TOPSY(6), TOPSY(Equals),       // 6 - middle
    XXX, TOPSY(Backtick),    TOPSY(1), TOPSY(2), TOPSY(3), TOPSY(Backslash), ___, // 7 - bottom
    Key_LeftParen, Key_RightParen, TOPSY(Minus), XXX,
    XXX,
 
-   ___, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
-   ___, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
+   XXX, Key_6, Key_7,         Key_8,            Key_9,        Key_0,        XXX, // 7
+   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - top
         XXX,  Key_RightShift, Key_RightControl, Key_RightAlt, Key_RightGui, XXX, // 6 - middle
-   ___, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
+   XXX, XXX,  XXX,            XXX,              XXX,          XXX,          XXX, // 7 - bottom
    XXX, Key_Enter, Key_Spacebar, Key_Escape,
    XXX),
 
   [NAV] = KEYMAP_STACKED
-  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, ___,
-   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, ___,
+  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, XXX,
+   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, XXX,
    Key_PageUp,   Key_LeftGui, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LFN2,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, ___,
+   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, XXX,
    Key_Delete,   Key_Backspace, Key_Tab, XXX,
    XXX,
 
-   ___,  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
+   XXX,  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
    ___,     Key_Redo, Key_PasteShortcut, Key_CopyShortcut,  Key_CutShortcut,         Key_Undo, Key_Equals,
                   Key_CapsLock, Key_LeftArrow, Key_DownArrow, Key_UpArrow, Key_RightArrow, Key_Quote,
-   ___,  Key_Insert,   Key_Home,      Key_PageDown,  Key_PageUp,  Key_End,        Key_Minus,
+   XXX,  Key_Insert,   Key_Home,      Key_PageDown,  Key_PageUp,  Key_End,        Key_Minus,
    XXX,           Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
 
   [MOUSE] = KEYMAP_STACKED
-  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, ___,
-   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, ___,
+  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, XXX,
+   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, XXX,
    Key_PageUp,   Key_LeftGui, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LFN2,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, ___,
+   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, XXX,
    Key_Delete,   Key_Backspace, Key_Tab, XXX,
    XXX,
 
-   ___,  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
-   ___,     Key_Redo, Key_PasteShortcut, Key_CopyShortcut,     Key_CutShortcut,         Key_Undo, Key_Equals,
+   XXX,  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
+   XXX,     Key_Redo, Key_PasteShortcut, Key_CopyShortcut,     Key_CutShortcut,         Key_Undo, Key_Equals,
                   Key_CapsLock, Key_mouseL, Key_mouseDn, Key_mouseUp, Key_mouseR, Key_Quote,
    ___,  Key_Insert,   Key_mouseScrollL,      Key_mouseScrollDn,  Key_mouseScrollUp,  Key_mouseScrollR,        Key_Minus,
    XXX,           Key_mouseBtnL, Key_mouseBtnL, Key_mouseBtnM,
    XXX),
 
   [WM] = KEYMAP_STACKED
-  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, ___,
-   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, ___,
+  (XXX,          Key_1, Key_2, Key_3, Key_4, Key_5, XXX,
+   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, XXX,
    Key_PageUp,   Key_LeftGui, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LFN2,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, ___,
+   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, XXX,
    Key_Delete,   Key_Backspace, Key_Tab, XXX,
    XXX,
 
    ___,  Key_6, Key_7, Key_8,     Key_9,         Key_0,         XXX,
-   ___,      Consumer_VolumeDecrement, Consumer_VolumeIncrement, Key_CopyShortcut,     Key_CutShortcut,         Key_Undo, Key_Equals,
+   XXX,      Consumer_VolumeDecrement, Consumer_VolumeIncrement, Key_CopyShortcut,     Key_CutShortcut,         Key_Undo, Key_Equals,
                   XXX, Key_Tab, Key_Backtick, Key_LeftBracket, Key_RightBracket, Key_Quote,
-   ___,  Key_Insert,   Key_Home,      Key_PageDown,  Key_PageUp,  Key_End,        Key_Minus,
+   XXX,  Key_Insert,   Key_Home,      Key_PageDown,  Key_PageUp,  Key_End,        Key_Minus,
    XXX,           Key_Escape, Key_Spacebar, Key_Enter,
    XXX),
 
@@ -395,21 +366,6 @@ const macro_t *macroAction(uint8_t macro_id, KeyEvent &event) {
 
   return MACRO_NONE;
 }
-
-
-
-// These 'solid' color effect definitions define a rainbow of
-// LED color modes calibrated to draw 500mA or less on the
-// Keyboardio Model 01.
-
-
-// static kaleidoscope::plugin::LEDSolidColor solidRed(160, 0, 0);
-// static kaleidoscope::plugin::LEDSolidColor solidOrange(140, 70, 0);
-// static kaleidoscope::plugin::LEDSolidColor solidYellow(130, 100, 0);
-// static kaleidoscope::plugin::LEDSolidColor solidGreen(0, 160, 0);
-// static kaleidoscope::plugin::LEDSolidColor solidBlue(0, 70, 130);
-// static kaleidoscope::plugin::LEDSolidColor solidIndigo(0, 0, 170);
-// static kaleidoscope::plugin::LEDSolidColor solidViolet(130, 0, 120);
 
 /** toggleLedsOnSuspendResume toggles the LEDs off when the host goes to sleep,
  * and turns them back on when it wakes up.
@@ -487,9 +443,6 @@ KALEIDOSCOPE_INIT_PLUGINS(
   // editable keymap in EEPROM.
   EEPROMSettings,
   EEPROMKeymap,
-
-  // Quantum keys
-  //  Qukeys,
   
   // Focus allows bi-directional communication with the host, and is the
   // interface through which the keymap in EEPROM can be edited.
@@ -516,45 +469,8 @@ KALEIDOSCOPE_INIT_PLUGINS(
   LEDControl,
 
   // We start with the LED effect that turns off all the LEDs.
-  //  LEDOff,
-
-  LEDActiveLayerColorEffect,
-
-  // The rainbow effect changes the color of all of the keyboard's keys at the same time
-  // running through all the colors of the rainbow.
-//  LEDRainbowEffect,
-
-  // The rainbow wave effect lights up your keyboard with all the colors of a rainbow
-  // and slowly moves the rainbow across your keyboard
-//  LEDRainbowWaveEffect,
-
-//  // The chase effect follows the adventure of a blue pixel which chases a red pixel across
-//  // your keyboard. Spoiler: the blue pixel never catches the red pixel
-//  LEDChaseEffect,
-
-  // These static effects turn your keyboard's LEDs a variety of colors
-  //  solidRed, solidOrange, solidYellow, solidGreen, solidBlue, solidIndigo, solidViolet,
-
-  // The breathe effect slowly pulses all of the LEDs on your keyboard
-//  LEDBreatheEffect,
-
-//  // The AlphaSquare effect prints each character you type, using your
-//  // keyboard's LEDs as a display
-//  AlphaSquareEffect,
-//
-//  // The stalker effect lights up the keys you've pressed recently
-//  StalkerEffect,
-
-  // The LED Palette Theme plugin provides a shared palette for other plugins,
-  // like Colormap below
-//  LEDPaletteTheme,
-
-  // The Colormap effect makes it possible to set up per-layer colormaps
-//  ColormapEffect,
-
-//  // The numpad plugin is responsible for lighting up the 'numpad' mode
-//  // with a custom LED effect
-//  NumPad,
+  LEDOff,
+  //LEDActiveLayerColorEffect,
 
   // The macros plugin adds support for macros
   Macros,
@@ -587,76 +503,17 @@ KALEIDOSCOPE_INIT_PLUGINS(
  */
 void setup() {
 
-  /*
-    
-  // The following Qukey definitions are for the left side of the home row (and
-  // the left palm key) of the Keyboardio Model01 keyboard.  For other
-  // keyboards, the `KeyAddr(row, col)` coordinates will need adjustment.
-  QUKEYS(
-
-    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 1), Key_LeftGui),        // Left-Home-A
-    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 2), Key_LeftAlt),        // Left-Home-R
-    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 3), Key_LeftControl),     // Left-Home-S
-    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 4), Key_LeftShift),      // Left-Home-T
-
-    kaleidoscope::plugin::Qukey(0, KeyAddr(0, 7), ShiftToLayer(WM)),      // Left-Thumb-Ctrl
-    kaleidoscope::plugin::Qukey(0, KeyAddr(1, 7), ShiftToLayer(NAV)),  // Left-Thumb-Bksp
-    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 7), ShiftToLayer(MOUSE)),// Left-Thumb-Cmd
-//    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 7), Key_LeftShift),    // Left-Thumb-Shift
-//
-//    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 8), Key_LeftShift),    // Right-Thumb-Shift
-    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 8), ShiftToLayer(SYM)),  // Right-Thumb-Cmd
-    kaleidoscope::plugin::Qukey(0, KeyAddr(1, 8), ShiftToLayer(NUM)),  // Right-Thumb-Space
-    kaleidoscope::plugin::Qukey(0, KeyAddr(0, 8), ShiftToLayer(FUN)),  // Right-Thumb-Ctrl
-
-    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 11), Key_RightShift),    // Right-Home-N
-    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 12), Key_RightControl),  // Right-Home-E
-    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 13), Key_RightAlt),      // Right-Home-I
-    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 14), Key_RightGui),      // Right-Home-O
-
-    
-
-//    kaleidoscope::plugin::Qukey(0, KeyAddr(3, 6), ShiftToLayer(1))   // Q/layer-shift (on `fn`)
-  )
-
-  Qukeys.setHoldTimeout(250);
-  Qukeys.setMaxIntervalForTapRepeat(25);
-  Qukeys.setOverlapThreshold(100);
-  Qukeys.setMinimumHoldTime(150);
-  Qukeys.setMinimumPriorInterval(150);
-
-  */
-  
   // First, call Kaleidoscope's internal setup function
   Kaleidoscope.setup();
 
-
-  LEDActiveLayerColorEffect.setColormap(LAYER_COLORMAP);
-  
-//  // While we hope to improve this in the future, the NumPad plugin
-//  // needs to be explicitly told which keymap layer is your numpad layer
-//  NumPad.numPadLayer = NUMPAD;
-
-//  // We configure the AlphaSquare effect to use RED letters
-//  AlphaSquare.color = CRGB(255, 0, 0);
-
-  // We set the brightness of the rainbow effects to 150 (on a scale of 0-255)
-  // This draws more than 500mA, but looks much nicer than a dimmer effect
-//  LEDRainbowEffect.brightness(150);
-//  LEDRainbowWaveEffect.brightness(150);
-
   // Set the action key the test mode should listen for to Left Fn
   HardwareTestMode.setActionKey(R3C6);
-
-//  // The LED Stalker mode has a few effects. The one we like is called
-//  // 'BlazingTrail'. For details on other options, see
-//  // https://github.com/keyboardio/Kaleidoscope/blob/master/docs/plugins/LED-Stalker.md
-//  StalkerEffect.variant = STALKER(BlazingTrail);
 
   // We want to make sure that the firmware starts with LED effects off
   // This avoids over-taxing devices that don't have a lot of power to share
   // with USB devices
   LEDOff.activate();
+  //LEDActiveLayerColorEffect.setColormap(layerColormap);
 
   // To make the keymap editable without flashing new firmware, we store
   // additional layers in EEPROM. For now, we reserve space for five layers. If
@@ -664,11 +521,6 @@ void setup() {
   // by using the `settings.defaultLayer` Focus command, or by using the
   // `keymap.onlyCustom` command to use EEPROM layers only.
   EEPROMKeymap.setup(5);
-
-  // We need to tell the Colormap plugin how many layers we want to have custom
-  // maps for. To make things simple, we set it to five layers, which is how
-  // many editable layers we have (see above).
-  // ColormapEffect.max_layers(5);
 }
 
 /** loop is the second of the standard Arduino sketch functions.
